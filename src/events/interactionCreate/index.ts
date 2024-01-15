@@ -1,0 +1,1 @@
+export { handleInteractionCreate } from "./interactionCreate"
