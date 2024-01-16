@@ -3,7 +3,6 @@ import { HandlerType } from "../../types"
 import { type CommandName } from "../../registerCommands"
 //
 import { handleVoucherCommand } from "./handleVoucherCommand"
-import { handleWalletCommand } from "./handleWalletCommand"
 
 export const handleInteractionCreate: HandlerType<'interactionCreate'> = async (client, interaction) => {
   if (!interaction.isChatInputCommand()) return
@@ -15,15 +14,10 @@ const processInteraction = async (interaction: ChatInputCommandInteraction) => {
   const commandName = interaction.commandName as CommandName
 
   switch (commandName) {
-    case 'ping':
-      await interaction.reply('Pong!')
-      break;
     case 'voucher':
       await handleVoucherCommand(interaction)
       break;
-    case 'wallet':
-      await handleWalletCommand(interaction)
-      break;
+  
     default:
        // makes sure that all cases are handled
       exhaustiveCheck(commandName)

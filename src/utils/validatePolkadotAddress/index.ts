@@ -1,0 +1,1 @@
+export { validatePolkadotAddress } from './validatePolkadotAddress'

@@ -5,8 +5,8 @@ export const db = pgPromise()(connectionString);
 
 db.connect()
   .then(() => {
-    console.log("Connected to database");
+    console.info("Connected to database");
   })
   .catch(error => {
-    console.log("Error connecting to DB:", error.message || error);
+    console.info("Error connecting to DB:", error.message || error);
   });

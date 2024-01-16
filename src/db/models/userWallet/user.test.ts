@@ -1,20 +1,18 @@
-const { UserAPI } = require('./user');
-require('dotenv').config({ path: './.env.test' });
-const  pgPromise = require('pg-promise')
+import  { UserAPI } from './user'
+import dotenv from "dotenv"
+dotenv.config({ path: './.env.test' })
+import pgPromise from 'pg-promise'
 
 const { connectionString } = require('../../dbConfig')
 const db = pgPromise()(connectionString)
 
-/**
- * @type {UserAPI}
- */
-let userApi
+let userApi: UserAPI
 
 beforeAll(async () => {
   await db.connect().catch(error => {
     console.error('Error connecting to db:', error);
   })
-  console.log('Successfully connected to db');
+  console.info('Successfully connected to db');
   await db.none('CREATE TABLE IF NOT EXISTS user_wallets (user_id VARCHAR PRIMARY KEY, wallet_address VARCHAR NOT NULL, last_claimed TIMESTAMP)');
 });
 

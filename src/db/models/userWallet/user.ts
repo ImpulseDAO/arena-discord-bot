@@ -37,10 +37,8 @@ export class UserAPI {
   async checkAlreadyClaimed(userId: string): Promise<boolean> {
     const result = await this.db.oneOrNone<User>('SELECT last_claimed FROM user_wallets WHERE user_id = $1', [userId]);
     const lastClaimed = result ? result.last_claimed : null;
-    console.log('lastClaimed', lastClaimed);
 
     const hoursPassed = lastClaimed ? howManyHoursPassed(lastClaimed) : Infinity;
-    console.log('hoursPassed', hoursPassed);
 
     return hoursPassed < 24;
   }
@@ -54,5 +52,5 @@ const howManyHoursPassed = (date: Date): number => {
   const now = new Date();
   const diff = now.getTime() - date.getTime();
   const hours = diff / 1000 / 60 / 60;
-  return Math.floor(hours);
+  return hours
 }

@@ -15,3 +15,5 @@ DB_PASSWORD=
 DB_NAME=discord_bot_db
 # end of database connection settings
 
+ROLE_NAME_TO_LOOK_FOR=Verified Vara-Arena Player
+

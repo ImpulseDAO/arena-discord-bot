@@ -1,9 +1,9 @@
 import 'module-alias/register'
-import { Client, IntentsBitField, type Interaction } from 'discord.js'
+import { Client, IntentsBitField } from 'discord.js'
 import './config'
 import { eventHandler } from './handlers/eventHandler'
 
-const client = new Client({
+export const client = new Client({
   intents: [
     IntentsBitField.Flags.Guilds,
     IntentsBitField.Flags.GuildMessages,
@@ -15,3 +15,5 @@ const client = new Client({
 eventHandler(client)
 
 client.login(process.env.DISCORD_TOKEN)
+
+export const discordClient = client

@@ -1,8 +1,11 @@
 {
+  "exclude": [
+    "**/*.test.ts",
+    "tests"
+  ],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
-
-
+    
     /**
       * Default options below. This project options are above this comment
       */
