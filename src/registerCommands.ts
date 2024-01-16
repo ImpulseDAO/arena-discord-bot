@@ -7,21 +7,22 @@ export const commandNames = {
 
 export type CommandName = keyof typeof commandNames
   
-const commands: any[] = [
+/**
+ * @deprecated // maybe we can use this in the future
+ */
+const walletCommand = new SlashCommandBuilder()
+  .setName('wallet')
+  .setDescription('Description')
+  .addStringOption(
+    option => option.setName('wallet').setDescription('Paste your wallet address here')
+  )
+  .toJSON() 
+
+const commands: (Record<string, string> & { name: CommandName })[] = [
   {
     name: 'voucher',
     description: 'Starts voucher issuance process',
   },
-  /**
-   * Wallet 
-   */
-  new SlashCommandBuilder()
-    .setName('wallet')
-    .setDescription('Description')
-    .addStringOption(
-      option => option.setName('wallet').setDescription('Paste your wallet address here')
-    )
-    .toJSON()
 ];
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN ?? '');
