@@ -1,0 +1,17 @@
+# make sure to rename this file to .env before running the project
+# also to run tests you need to rename .env.test.example to .env.test
+
+# token and application id you can get from discord developer portal -> https://discord.com/developers/applications
+DISCORD_TOKEN=
+APPLICATION_ID=
+
+# the api endpoint of the server that issues vouchers
+VOUCHER_ISSUER_URL=https:goodbadgood.dev/arena
+
+# database connection settings
+DB_URL=localhost:5432
+DB_USER=postgres
+DB_PASSWORD=
+DB_NAME=discord_bot_db
+# end of database connection settings
+

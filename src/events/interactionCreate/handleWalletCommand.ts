@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js"
-import { setWalletAddress } from "../../db"
+import { userApi } from "../../db/models/user/userApi"
 
 export const handleWalletCommand  = async (interaction: ChatInputCommandInteraction) => {
   interaction.command
@@ -14,7 +14,7 @@ export const handleWalletCommand  = async (interaction: ChatInputCommandInteract
     return
   }
   
-  setWalletAddress(userId, walletAddress)
+  await userApi.setWalletAddress(userId, walletAddress)
   
   interaction.reply('Wallet address successfully added')
 }

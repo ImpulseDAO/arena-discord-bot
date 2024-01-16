@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction } from "discord.js"
-import { checkAlreadyClaimed, getWalletAddress, setLastClaimed } from "../../db"
 import { ROLE_NAME_TO_LOOK_FOR } from "../../consts"
 import { api } from "../../api"
+import { userApi } from "../../db/models/user/userApi"
 
 export const handleVoucherCommand  = async (interaction: ChatInputCommandInteraction) => {
   // 0. chieck if interaction has commandName === 'voucher'
@@ -25,7 +25,7 @@ export const handleVoucherCommand  = async (interaction: ChatInputCommandInterac
   // 3. if yes, check if user has wallet address set
 
   const userId = member.user.id
-  const walletAddress = getWalletAddress(userId)
+  const walletAddress = await userApi.getWalletAddress(userId)
 
   // 4. if not, reply with instructions on how to set wallet address
 
@@ -36,7 +36,7 @@ export const handleVoucherCommand  = async (interaction: ChatInputCommandInterac
 
   // 5. if addres is set, check if user has already claimed voucher
 
-  const hasUserAlreadyClaimedVoucher = checkAlreadyClaimed(member.user.id)
+  const hasUserAlreadyClaimedVoucher = await userApi.checkAlreadyClaimed(member.user.id)
 
   // 6. if yes, reply with message that user has already claimed voucher
 
@@ -49,7 +49,7 @@ export const handleVoucherCommand  = async (interaction: ChatInputCommandInterac
 
   try {
     const res = await api.claimVoucher(walletAddress)
-    setLastClaimed(userId)
+    await userApi.setLastClaimed(userId)
 
     res.json().then((data) => {
       console.log(data);

@@ -1,8 +1,6 @@
 import 'module-alias/register'
 import { Client, IntentsBitField, type Interaction } from 'discord.js'
 import './config'
-import './registerCommands'
-import "./db"
 import { eventHandler } from './handlers/eventHandler'
 
 const client = new Client({
