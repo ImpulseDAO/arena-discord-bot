@@ -2,7 +2,7 @@
   "name": "arena-bot-test",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.ts",
+  "main": "src/botApp.ts",
   "scripts": {
     "build": "tsc",
     "start": "node ./bin/botApp.js",

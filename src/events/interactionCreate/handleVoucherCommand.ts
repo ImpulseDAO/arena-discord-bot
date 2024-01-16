@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, ActionRow, ActionRowBuilder, TextInputStyle, ComponentType, ButtonBuilder, TextInputBuilder, ButtonStyle, ModalBuilder, ModalActionRowComponentBuilder, Events, ModalSubmitInteraction } from "discord.js"
 import { api } from "../../api"
 import { userApi } from "../../db/models/userWallet/userApi"
-import { discordClient } from "../../app"
+import { discordClient } from "../../botApp"
 import { validatePolkadotAddress } from "../../utils/validatePolkadotAddress"
 
 export const handleVoucherCommand = async (interaction: ChatInputCommandInteraction) => {
