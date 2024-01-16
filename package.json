@@ -5,8 +5,8 @@
   "main": "src/app.ts",
   "scripts": {
     "build": "tsc",
-    "start": "node ./bin/app.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q ./bin/app.js\"",
+    "start": "node ./bin/botApp.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q ./bin/botApp.js\"",
     "test": "jest --watchAll --verbose"
   },
   "author": "",
