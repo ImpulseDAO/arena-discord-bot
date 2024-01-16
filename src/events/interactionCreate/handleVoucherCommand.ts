@@ -81,7 +81,7 @@ const checkUserAndClaimVoucher = async ({
     await userApi.setLastClaimed(userId)
 
     
-    await interaction.followUp(`${`<@${userId}>`} have successfully received voucher!`)
+    await interaction.followUp(`${`<@${userId}>`} has successfully received voucher!`)
   } catch (error) {
     console.error(error)
   }
