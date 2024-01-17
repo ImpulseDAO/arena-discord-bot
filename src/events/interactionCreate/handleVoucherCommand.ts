@@ -20,7 +20,9 @@ export const handleVoucherCommand = async (interaction: ChatInputCommandInteract
   // 2. if not, reply with instructions on how to become verified player
 
   if (!isVerifiedPlayer) {
-    await interaction.reply("You are not a verified player. We've sent you instructions on how to become one.")
+
+    
+    await interaction.reply("You are not a verified player. Please contact an admin to get the permission.")
     return
   }
 
