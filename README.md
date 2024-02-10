@@ -19,8 +19,8 @@ cp _env.example .env
 3. Fill in the required fields in the `.env` file such as `DISCORD_TOKEN` and `APPLICATION_ID` (you can get these values in [Discord Developer Portal](https://discord.com/developers/applications))
 
 4. Install and start PostgreSQL <https://www.postgresql.org/download/linux/ubuntu/>
-
-5. Build and run the app
+5. Create user and database, fill in databse-related fields in the `.env` file
+6. Build and run the app
 
 ```sh
 npm run build
