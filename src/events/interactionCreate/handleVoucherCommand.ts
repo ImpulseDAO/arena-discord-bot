@@ -67,7 +67,9 @@ const checkUserAndClaimVoucher = async ({
 }) => {
   // 5. if addres is set, check if user has already claimed voucher
 
+  process.stdout.write('Checking if user has already claimed voucher...')
   const hasUserAlreadyClaimedVoucher = await userApi.checkAlreadyClaimed(userId) 
+  console.log(hasUserAlreadyClaimedVoucher ? 'YES' : 'NO')
 
   // 6. if yes, reply with message that user has already claimed voucher
 
@@ -80,18 +82,21 @@ const checkUserAndClaimVoucher = async ({
 
   try {
     interaction.reply("Please wait while we're issuing voucher...")
-    await interaction.deferReply()
     
-    const res = await api.claimVoucher(walletAddress)
+    const { data, rawResponse: res} = await api.claimVoucher(walletAddress)
 
     if (res.status !== 200) {
       await interaction.followUp('Voucher issuing service returned error. Please try again later.')
+      console.error('Voucher issuing service returned error. Check the error below')
+      console.error(await res.json())
       return
     }
     
     await userApi.setLastClaimed(userId)
 
-    
+    const voucherId = data?.voucherId
+    console.log(`User ${userId} has successfully received voucher with id ${voucherId}!`)
+
     await interaction.followUp(`${`<@${userId}>`} has successfully received voucher!`)
   } catch (error) {
     console.error('Something went wrong while trying to claim voucher. Check the error below')
