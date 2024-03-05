@@ -82,6 +82,7 @@ const checkUserAndClaimVoucher = async ({
 
   try {
     interaction.reply("Please wait while we're issuing voucher...")
+    await interaction.deferReply()
     
     const { data, rawResponse: res} = await api.claimVoucher(walletAddress)
 
@@ -93,7 +94,7 @@ const checkUserAndClaimVoucher = async ({
     }
     
     await userApi.setLastClaimed(userId)
-
+    
     const voucherId = data?.voucherId
     console.log(`User ${userId} has successfully received voucher with id ${voucherId}!`)
 
