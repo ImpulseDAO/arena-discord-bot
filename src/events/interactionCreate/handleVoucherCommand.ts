@@ -80,11 +80,12 @@ const checkUserAndClaimVoucher = async ({
 
   try {
     interaction.reply("Please wait while we're issuing voucher...")
+    await interaction.deferReply()
     
     const res = await api.claimVoucher(walletAddress)
 
     if (res.status !== 200) {
-      await interaction.followUp("Voucher issuing service returned error. Please try again later.")
+      await interaction.followUp('Voucher issuing service returned error. Please try again later.')
       return
     }
     
