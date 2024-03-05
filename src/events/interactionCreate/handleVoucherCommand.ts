@@ -13,18 +13,24 @@ export const handleVoucherCommand = async (interaction: ChatInputCommandInteract
 
   // 1. check if user is verified player
 
+  process.stdout.write('Checking if user is verified player...')
   const { member } = interaction
   const ROLE_NAME_TO_LOOK_FOR = process.env.ROLE_NAME_TO_LOOK_FOR
   const isVerifiedPlayer = member && 'cache' in member.roles && member.roles.cache.some(role => role.name === ROLE_NAME_TO_LOOK_FOR)
+  const username = member?.user.username
 
   // 2. if not, reply with instructions on how to become verified player
 
   if (!isVerifiedPlayer) {
-
-    
+    console.log('NOT VERIFIED')
+    console.log(`User ${username} is not a verified player.`)
     await interaction.reply("You are not a verified player. Please contact an admin to get the permission.")
     return
   }
+
+  console.log('OK')
+  console.log(`User ${username} is a verified player.`)
+  
 
   // 3. if yes, check if user has wallet address set
 
@@ -34,10 +40,12 @@ export const handleVoucherCommand = async (interaction: ChatInputCommandInteract
   // 4. if not, reply with instructions on how to set wallet address
 
   if (!walletAddress) {
+    console.log(`User ${username} with id ${userId} doesn't have wallet address set.`)
     try {
       await showModal(interaction)
     } catch (error) {
-      console.error("Something went wrong while trying to show modal.")
+      console.error("Something went wrong while trying to show modal. Check the error below")
+      console.error(error)
     }
     return
   }
@@ -85,7 +93,10 @@ const checkUserAndClaimVoucher = async ({
     
     await interaction.followUp(`${`<@${userId}>`} has successfully received voucher!`)
   } catch (error) {
+    console.error('Something went wrong while trying to claim voucher. Check the error below')
     console.error(error)
+
+    await interaction.followUp('Something went wrong while trying to call api.claimVoucher. Please try again later.')
   }
 }
 
@@ -93,8 +104,11 @@ const checkUserAndClaimVoucher = async ({
  * Modal submit event listener
  */
 setTimeout( () => {
+  console.log('Setting up modal submit event listener... OK')
   discordClient.on(Events.InteractionCreate, async interaction => {
+    
     if (!interaction.isModalSubmit()) return
+    console.info('Listening for modal submit...')
 
     const fields = Array.from(interaction.fields.fields.values())
     const walletAddress = fields[0].value
@@ -117,8 +131,6 @@ setTimeout( () => {
      */
     checkUserAndClaimVoucher({ interaction, userId, walletAddress })
   })
-
-  console.info('Listening for modal submit...')
 }, 500)
 
 const showModal = async (interaction: ChatInputCommandInteraction) => {
