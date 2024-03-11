@@ -1,10 +1,6 @@
-const voucherIssuerUrl = process.env.VOUCHER_ISSUER_URL
+import { VoucherIssuedData } from "../types"
 
-type VoucherIssuedData = {
-  owner: string;
-  spender: string;
-  voucherId: string;
-}
+const voucherIssuerUrl = process.env.VOUCHER_ISSUER_URL
 
 export const claimVoucher = async (walletAddress: string) => {
   if (!voucherIssuerUrl) throw new Error('VOUCHER_ISSUER_URL is not set')

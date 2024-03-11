@@ -97,7 +97,7 @@ const checkUserAndClaimVoucher = async ({
     const voucherId = data?.voucherId
     console.log(`User ${userId} has successfully received voucher with id ${voucherId}!`)
 
-    await interaction.followUp(`${`<@${userId}>`} has successfully received voucher!`)
+    await interaction.followUp(`${`<@${userId}>`} has successfully received voucher. ${voucherId ? `Id:${'\n'}${voucherId}` : ''}`)
   } catch (error) {
     console.error('Something went wrong while trying to claim voucher. Check the error below')
     console.error(error)
